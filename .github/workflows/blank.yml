@@ -1,0 +1,28 @@
+name: Clone and Push Magento2
+
+on:
+  push:
+    branches:
+      - main  # أو الفرع الذي تستخدمه في مستودعك
+
+jobs:
+  clone_and_push:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+
+    - name: Clone Magento 2 repository
+      run: |
+        git clone --depth 1 --single-branch https://github.com/magento/magento2.git temp-magento2
+        cp -r temp-magento2/* ./
+        rm -rf temp-magento2
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.email "your-email@example.com"
+        git config --global user.name "Your Name"
+        git add .
+        git commit -m "Add Magento 2 files"
+        git push origin main  # أو الفرع الذي تستخدمه
