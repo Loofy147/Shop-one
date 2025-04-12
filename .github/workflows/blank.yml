@@ -11,20 +11,14 @@ jobs:
       - name: Checkout current repository
         uses: actions/checkout@v2
 
-      - name: Set up Git identity
-        run: |
-          git config --global user.name "Loofy147"
-          git config --global user.email "ebh.ceo213@gmail.com"
-
       - name: Clone Magento 2 repository
         run: |
           git clone --depth 1 https://github.com/magento/magento2.git magento
           cp -r magento/* .
           rm -rf magento
 
-      - name: Create new branch, commit and push changes
-        run: |
-          git checkout -b magento-import
-          git add .
-          git commit -m "Imported Magento 2 source code"
-          git push origin magento-import
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Imported Magento 2 source code"
+          branch: magento-import
