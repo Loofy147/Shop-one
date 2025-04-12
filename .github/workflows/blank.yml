@@ -22,8 +22,8 @@ jobs:
 
     - name: Commit and Push changes
       run: |
-        git config --global user.email "your-email@example.com"
-        git config --global user.name "Your Name"
+        git config --global user.email "ebh.ceo213@gmail.com"
+        git config --global user.name "Loofy147"
         git add .
         git commit -m "Add Magento 2 files"
         git push origin main  # أو الفرع الذي تستخدمه
