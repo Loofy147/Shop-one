@@ -1,0 +1,31 @@
+name: Deploy Magento 2 to InfinityFree
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install lftp
+      run: sudo apt-get install lftp
+
+    - name: Clone Magento 2
+      run: |
+        git clone --depth 1 https://github.com/magento/magento2.git magento2
+
+    - name: Deploy to FTP
+      env:
+        FTP_HOST: ${{ secrets.FTP_HOST }}
+        FTP_USER: ${{ secrets.FTP_USER }}
+        FTP_PASS: ${{ secrets.FTP_PASS }}
+      run: |
+        lftp -c "
+          open -u $FTP_USER,$FTP_PASS $FTP_HOST;
+          mirror -R ./magento2 /htdocs;
+          bye
+        "
