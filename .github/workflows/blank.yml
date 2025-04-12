@@ -1,7 +1,8 @@
 name: Clone and Push Magento2
 
+
 on:
-  push:
+  workflow_dispatch:
     branches:
       - main  # أو الفرع الذي تستخدمه في مستودعك
 
